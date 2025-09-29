@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Gift } from "lucide-react";
+import {Link} from "react-router-dom"
 
 const Task2 = () => {
   return (
@@ -32,8 +33,14 @@ const Task2 = () => {
         {/* CTA Button */}
         <div className="mt-auto">
           <button className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto">
-            Play Games & Earn 100 Credits
+           
           </button>
+          <Link
+              to="/trainingTask2"
+              className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto"
+            >
+              Play Games & Earn 100 Credits
+         </Link>
         </div>
       </motion.div>
 

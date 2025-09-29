@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Gift, Camera, Instagram, Facebook, Twitter, Linkedin } from "lucide-react";
 
 const Task3 = () => {
@@ -84,9 +85,9 @@ const Task3 = () => {
 
         {/* CTA Button */}
         <div className="mt-auto">
-          <button className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto">
+          <Link to="/workshop" className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto">
             Attend Workshop
-          </button>
+          </Link>
         </div>
       </motion.div>
     </div>

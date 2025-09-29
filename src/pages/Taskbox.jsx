@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Gift } from "lucide-react";
-
+import { Link } from "react-router-dom";
 const Taskbox = () => {
   return (
     <div className="w-full flex flex-col md:flex-row gap-6">
@@ -69,9 +69,9 @@ const Taskbox = () => {
 
         {/* CTA Button */}
         <div className="mt-auto">
-          <button className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto">
+          <Link to="/trainingTask1" className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto">
             Watch & Get Credits
-          </button>
+          </Link>
         </div>
       </motion.div>
     </div>
