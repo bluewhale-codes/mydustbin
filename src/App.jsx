@@ -13,8 +13,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { VedioTutorial } from './mainComp/VedioTutorial'
 import VideoLearning from './pages/VideoLearning'
 import WasteManagementWorkshops from './pages/WasteManagementWorkshops'
-import Test3 from './tests/test3'
-
+import Test3 from './pages/Test3'
 function App() {
   const [count, setCount] = useState(0)
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Test4 from './Test4';
-import Test5 from './Test5';
+import Test4 from '../tests/Test4';
 
 const Test3 = ({ 
   title = "Waste Segregation Tutorial",
