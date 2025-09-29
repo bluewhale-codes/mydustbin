@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import MyMap from "../mainComp/MyMap";
 
-// UserDashboard.jsx
-// Single-file React component styled with Tailwind CSS
-// Default export a responsive dashboard containing the citizen-facing features
+const volunteerLocation = { lat: 30.753380610709804, lng: 76.77167276037278 };
+const pickupLocation = { lat: 30.765963936792573, lng: 76.77370570272477 };
 
 export default function UserDashboard() {
-  const [trainingComplete, setTrainingComplete] = useState(45); // percent
+  const [trainingComplete, setTrainingComplete] = useState(45);
   const [greenPoints, setGreenPoints] = useState(320);
   const [reports, setReports] = useState([
     { id: 1, title: "Overflowing public bin", status: "Resolved", date: "2025-09-02" },
@@ -13,9 +13,9 @@ export default function UserDashboard() {
   ]);
   const [myBins] = useState({ dry: true, wet: true, hazardous: true });
   const [collectionSchedule] = useState([
-    { day: "Mon", type: "Wet", time: "7:00 AM" },
-    { day: "Wed", type: "Dry", time: "9:00 AM" },
-    { day: "Fri", type: "Hazardous", time: "10:00 AM" },
+    { day: "Mon", type: "10kg", time: "7:00 AM" },
+    { day: "Wed", type: "4kg", time: "9:00 AM" },
+    { day: "Fri", type: "7kg", time: "10:00 AM" },
   ]);
   const [missedPickups, setMissedPickups] = useState([]);
 
@@ -41,96 +41,49 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+      {/* Header */}
       <header className="mb-6">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-800">My Waste Dashboard</h1>
-            <p className="text-sm text-gray-500">Track segregation, collection, training & rewards</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">My Waste Dashboard</h1>
+            <p className="text-xs sm:text-sm text-gray-500">
+              Track segregation, collection, training & rewards
+            </p>
           </div>
-          
-          <div className="flex items-center gap-4">
+
+          <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
             <div className="text-right">
               <div className="text-xs text-gray-500">Green Points</div>
               <div className="font-medium text-lg">{greenPoints}</div>
             </div>
-            <button className="bg-green-600 text-white px-4 py-2 rounded-md text-sm">Redeem</button>
+            <button className="bg-green-600 text-white px-3 py-2 rounded-md text-sm w-full sm:w-auto">
+              Redeem
+            </button>
           </div>
         </div>
       </header>
 
+      {/* Main Grid */}
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Left column: main widgets */}
+        {/* Left Column */}
         <section className="lg:col-span-3 space-y-6">
-
-
-             {/* Personal Impact */}
-          <div className="bg-white rounded-2xl p-5 shadow-sm">
-            <h3 className="text-lg font-semibold">My Impact</h3>
-            <p className="text-sm text-gray-500">See how your household contributes to waste reduction</p>
-
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <ImpactCard title="This Month" value="12 kg recycled" />
-              <ImpactCard title="Compost" value="8 kg" />
-              <ImpactCard title="CO₂ saved" value="4.2 kg" />
-            </div>
-          </div>
-          {/* Training & Awareness */}
-          <div className="bg-white rounded-2xl p-5 shadow-sm">
-            <div className="flex items-start justify-between">
-              <div>
-                <h2 className="text-lg font-semibold text-gray-800">Training & Awareness</h2>
-                <p className="text-sm text-gray-500">Complete mandatory modules to earn badges and points.</p>
-              </div>
-              <div className="text-right">
-                <div className="text-xs text-gray-500">Progress</div>
-                <div className="text-sm font-medium">{trainingComplete}% complete</div>
-              </div>
-            </div>
-
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
-              <ModuleCard title="Segregation Basics" progress={80} />
-              <ModuleCard title="Composting at Home" progress={62} />
-              <ModuleCard title="Plastic Reuse" progress={20} />
-            </div>
-          </div>
-          
-
-          {/* Household Waste Management */}
-          <div className="bg-white rounded-2xl p-5 shadow-sm">
-            <h3 className="text-lg font-semibold">Household Waste Management</h3>
-            <p className="text-sm text-gray-500">Your issued items and compost activity</p>
-
-            <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <BinIcon className="w-10 h-10" />
-                <div>
-                  <div className="font-medium">3-bin set</div>
-                  <div className="text-sm text-gray-500">Dry · Wet · Hazardous</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="text-sm text-gray-500">Compost Kit</div>
-                <button className="px-3 py-1 bg-gray-100 rounded text-sm">Log Compost</button>
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-3 gap-3">
-              <StatusPill label="Dry Bin" ok={myBins.dry} />
-              <StatusPill label="Wet Bin" ok={myBins.wet} />
-              <StatusPill label="Hazardous" ok={myBins.hazardous} />
-            </div>
+          {/* Map */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm">
+            <MyMap volunteerPos={volunteerLocation} pickupPos={pickupLocation} />
           </div>
 
           {/* Collection Tracking */}
-          <div className="bg-white rounded-2xl p-5 shadow-sm">
-            <div className="flex items-center justify-between">
+          <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
                 <h3 className="text-lg font-semibold">Collection Tracking</h3>
                 <p className="text-sm text-gray-500">Live schedule & vehicle tracking</p>
+                <h2 className="text-md font-semibold mt-2 sm:mt-0">Your History</h2>
               </div>
-              <div className="text-sm text-gray-500">Next pickup: Wed — Dry — 9:00 AM</div>
+              <div className="text-sm text-gray-500">
+                Next pickup: <b>Sunday</b> — 9:00 AM
+              </div>
             </div>
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -141,7 +94,7 @@ export default function UserDashboard() {
                   <div className="text-sm text-gray-500">{c.time}</div>
                   <button
                     onClick={() => schedulePickup(c.type)}
-                    className="mt-2 px-2 py-1 bg-blue-600 text-white text-xs rounded"
+                    className="mt-2 px-2 py-1 bg-blue-600 text-white text-xs rounded w-full sm:w-auto"
                   >
                     Reschedule Pickup
                   </button>
@@ -149,21 +102,19 @@ export default function UserDashboard() {
               ))}
             </div>
 
-            <div className="mt-4">
-              <div className="h-40 bg-gray-100 rounded flex items-center justify-center text-gray-400">Map / Vehicle tracker placeholder</div>
-            </div>
-
             {missedPickups.length > 0 && (
               <div className="mt-6">
                 <h4 className="font-medium">Volunteer Pickup Requests</h4>
                 <ul className="mt-2 space-y-2">
                   {missedPickups.map((m) => (
-                    <li key={m.id} className="flex items-center justify-between bg-green-50 p-3 rounded">
+                    <li key={m.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-green-50 p-3 rounded gap-2">
                       <div>
                         <div className="font-medium">{m.type} Waste</div>
                         <div className="text-xs text-gray-500">Requested on {m.date}</div>
                       </div>
-                      <div className="text-xs bg-green-200 px-2 py-1 rounded">{m.status}</div>
+                      <div className="text-xs bg-green-200 px-2 py-1 rounded w-fit sm:w-auto">
+                        {m.status}
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -171,28 +122,101 @@ export default function UserDashboard() {
             )}
           </div>
 
-          {/* Report Waste */}
-          <div className="bg-white rounded-2xl p-5 shadow-sm">
-            <div className="flex items-center justify-between">
+          {/* Impact */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm">
+            <h3 className="text-lg font-semibold">My Impact</h3>
+            <p className="text-sm text-gray-500">See how your household contributes to waste reduction</p>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <ImpactCard title="This Month" value="12 kg recycled" />
+              <ImpactCard title="Compost" value="8 kg" />
+              <ImpactCard title="CO₂ saved" value="4.2 kg" />
+            </div>
+          </div>
+
+          {/* Training */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-800">Training & Awareness</h2>
+                <p className="text-sm text-gray-500">
+                  Complete mandatory modules to earn badges and points.
+                </p>
+              </div>
+              <div className="text-right">
+                <div className="text-xs text-gray-500">Progress</div>
+                <div className="text-sm font-medium">{trainingComplete}% complete</div>
+              </div>
+            </div>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              <ModuleCard title="Segregation Basics" progress={80} />
+              <ModuleCard title="Composting at Home" progress={62} />
+              <ModuleCard title="Plastic Reuse" progress={20} />
+            </div>
+          </div>
+
+          {/* Household Waste */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm">
+            <h3 className="text-lg font-semibold">Household Waste Management</h3>
+            <p className="text-sm text-gray-500">Your issued items and compost activity</p>
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <BinIcon className="w-8 h-8 sm:w-10 sm:h-10" />
+                <div>
+                  <div className="font-medium">3-bin set</div>
+                  <div className="text-sm text-gray-500">Dry · Wet · Hazardous</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="text-sm text-gray-500">Compost Kit</div>
+                <button className="px-3 py-1 bg-gray-100 rounded text-sm w-full sm:w-auto">
+                  Log Compost
+                </button>
+              </div>
+            </div>
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <StatusPill label="Dry Bin" ok={myBins.dry} />
+              <StatusPill label="Wet Bin" ok={myBins.wet} />
+              <StatusPill label="Hazardous" ok={myBins.hazardous} />
+            </div>
+          </div>
+
+          {/* Reports */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h3 className="text-lg font-semibold">Report Waste</h3>
               <div className="text-sm text-gray-500">Send geo-tagged photos to ULB</div>
             </div>
-
-            <form onSubmit={handleReport} className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <input name="title" placeholder="Short description" className="col-span-2 p-2 border rounded" required />
-              <button className="px-4 py-2 bg-blue-600 text-white rounded">Report</button>
+            <form
+              onSubmit={handleReport}
+              className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3"
+            >
+              <input
+                name="title"
+                placeholder="Short description"
+                className="col-span-2 p-2 border rounded w-full"
+                required
+              />
+              <button className="px-4 py-2 bg-blue-600 text-white rounded w-full sm:w-auto">
+                Report
+              </button>
             </form>
-
             <div className="mt-4">
               <h4 className="font-medium">Recent reports</h4>
               <ul className="mt-2 space-y-2">
                 {reports.map((r) => (
-                  <li key={r.id} className="flex items-center justify-between bg-gray-50 p-3 rounded">
+                  <li
+                    key={r.id}
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 p-3 rounded gap-2"
+                  >
                     <div>
                       <div className="font-medium">{r.title}</div>
                       <div className="text-xs text-gray-500">{r.date}</div>
                     </div>
-                    <div className={`text-sm px-2 py-1 rounded-full ${r.status === 'Pending' ? 'bg-yellow-100' : 'bg-green-100'}`}>
+                    <div
+                      className={`text-sm px-2 py-1 rounded-full w-fit sm:w-auto ${
+                        r.status === "Pending" ? "bg-yellow-100" : "bg-green-100"
+                      }`}
+                    >
                       {r.status}
                     </div>
                   </li>
@@ -200,16 +224,15 @@ export default function UserDashboard() {
               </ul>
             </div>
           </div>
-
-         
         </section>
 
-        {/* Right column: quick actions & facilities */}
-        <aside className="space-y-6">
+        {/* Sidebar */}
+        <aside className="space-y-6 lg:col-span-1">
           <div className="bg-white rounded-2xl p-4 shadow-sm">
             <h4 className="font-semibold">Incentives & Penalties</h4>
-            <p className="text-sm text-gray-500">Gain points for compliance. Penalties visible here.</p>
-
+            <p className="text-sm text-gray-500">
+              Gain points for compliance. Penalties visible here.
+            </p>
             <div className="mt-3 grid grid-cols-1 gap-2">
               <div className="flex items-center justify-between">
                 <div className="text-sm">Last fine</div>
@@ -220,48 +243,65 @@ export default function UserDashboard() {
                 <div className="text-sm font-medium">+20</div>
               </div>
             </div>
-
-            <button className="mt-4 w-full px-3 py-2 bg-green-600 text-white rounded">View Rewards</button>
+            <button className="mt-4 w-full px-3 py-2 bg-green-600 text-white rounded">
+              View Rewards
+            </button>
           </div>
 
           <div className="bg-white rounded-2xl p-4 shadow-sm">
             <h4 className="font-semibold">Facilities Nearby</h4>
-            <p className="text-sm text-gray-500">Recycling centres, scrap shops & plants</p>
-
-            <ul className="mt-3 space-y-2">
-              <li className="text-sm">Recycling centre — 1.2 km</li>
-              <li className="text-sm">Biomethanization plant — 3.6 km</li>
-              <li className="text-sm">Scrap shop (online) — Open</li>
+            <p className="text-sm text-gray-500">
+              Recycling centres, scrap shops & plants
+            </p>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li>Recycling centre — 1.2 km</li>
+              <li>Biomethanization plant — 3.6 km</li>
+              <li>Scrap shop (online) — Open</li>
             </ul>
-
-            <button className="mt-4 w-full px-3 py-2 bg-gray-100 rounded">Open Map</button>
+            <button className="mt-4 w-full px-3 py-2 bg-gray-100 rounded">
+              Open Map
+            </button>
           </div>
 
           <div className="bg-white rounded-2xl p-4 shadow-sm">
             <h4 className="font-semibold">Area Committee</h4>
-            <p className="text-sm text-gray-500">Green Champions — local monitoring & events</p>
-
+            <p className="text-sm text-gray-500">
+              Green Champions — local monitoring & events
+            </p>
             <div className="mt-3 text-sm">
               <div>Next meet: 2025-09-15</div>
-              <div className="mt-2"><button className="px-3 py-1 bg-blue-600 text-white rounded text-sm">Join</button></div>
+              <div className="mt-2">
+                <button className="px-3 py-1 bg-blue-600 text-white rounded text-sm w-full sm:w-auto">
+                  Join
+                </button>
+              </div>
             </div>
           </div>
         </aside>
       </main>
 
-      <footer className="max-w-7xl mx-auto mt-8 text-sm text-gray-500">Powered by SmartWaste • Privacy-friendly</footer>
+      {/* Footer */}
+      <footer className="max-w-7xl mx-auto mt-8 text-xs sm:text-sm text-gray-500 text-center">
+        Powered by SmartWaste • Privacy-friendly
+      </footer>
     </div>
   );
 }
 
-// --- Subcomponents (in the same file for convenience) ---
+// --- Subcomponents ---
 function ModuleCard({ title, progress = 0 }) {
   return (
     <div className="p-3 rounded bg-gray-50">
       <div className="text-sm text-gray-600">{title}</div>
       <div className="mt-3">
         <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-          <div className="h-2 rounded-full" style={{ width: `${progress}%`, background: "linear-gradient(90deg,#34d399,#10b981)" }} />
+          <div
+            className="h-2 rounded-full"
+            style={{
+              width: `${progress}%`,
+              background: "linear-gradient(90deg,#34d399,#10b981)",
+            }}
+          />
         </div>
         <div className="text-xs text-gray-500 mt-2">{progress}% complete</div>
       </div>
@@ -292,9 +332,19 @@ function ImpactCard({ title, value }) {
 
 function BinIcon({ className = "w-8 h-8" }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <rect x="3" y="6" width="18" height="14" rx="2" stroke="#4B5563" strokeWidth="1.5" />
-      <path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#4B5563" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"
+        stroke="#4B5563"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
