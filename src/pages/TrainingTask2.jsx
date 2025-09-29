@@ -1,5 +1,5 @@
 import React from 'react'
-import Test from '../tests/test'
+import Test from '../tests/Test'
 import Test2 from '../tests/Test2'
 import CreditProgress from '../mainComp/CreditProgress'
 const TrainingTask2 = () => {
