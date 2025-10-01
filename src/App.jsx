@@ -14,6 +14,8 @@ import { VedioTutorial } from './mainComp/VedioTutorial'
 import VideoLearning from './pages/VideoLearning'
 import WasteManagementWorkshops from './pages/WasteManagementWorkshops'
 import Test3 from './pages/Test3'
+import { Introduction } from './pages/Introduction'
+import HomeBanner from './pages/HomeBanner'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -31,6 +33,9 @@ function App() {
         <Route path="/task1dashboard" element={<Task1Dashboard/>} />
         <Route path="/workshop" element={<WasteManagementWorkshops/>} />
         <Route path="/test" element={<Test3/>} />
+        <Route path="/info" element={<Introduction/>} />
+        <Route path="/home" element={<HomeBanner/>}/>
+        
       </Routes>
     </BrowserRouter>
     </>

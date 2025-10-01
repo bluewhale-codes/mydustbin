@@ -118,6 +118,24 @@ const VedioTutorial = () => {
         buttonText="Get Started"
         onButtonClick={() => navigate("/test")}
       />
+      <HeroBanner
+        title="Waste Segregation Tutorial"
+        subtitle="Learn proper waste segregation and earn points for every video you complete. By watching this video, you’ll learn how to segregate waste correctly into the right categories — making waste management easier and more effective."
+        buttonText="Get Started"
+        onButtonClick={() => navigate("/test")}
+      />
+      <HeroBanner
+        title="Waste Segregation Tutorial"
+        subtitle="Learn proper waste segregation and earn points for every video you complete. By watching this video, you’ll learn how to segregate waste correctly into the right categories — making waste management easier and more effective."
+        buttonText="Get Started"
+        onButtonClick={() => navigate("/test")}
+      />
+      <HeroBanner
+        title="Waste Segregation Tutorial"
+        subtitle="Learn proper waste segregation and earn points for every video you complete. By watching this video, you’ll learn how to segregate waste correctly into the right categories — making waste management easier and more effective."
+        buttonText="Get Started"
+        onButtonClick={() => navigate("/test")}
+      />
     </div>
   );
 };

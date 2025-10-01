@@ -32,9 +32,7 @@ const Task2 = () => {
 
         {/* CTA Button */}
         <div className="mt-auto">
-          <button className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto">
-           
-          </button>
+          
           <Link
               to="/trainingTask2"
               className="bg-black text-white px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-800 transition w-full sm:w-auto"
